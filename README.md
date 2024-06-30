@@ -24,14 +24,14 @@ WASI clocks必须至少有两个完整独立的实现。
 - [目标（Goals）](#目标goals)
 - [非目标（Non-goals）](#非目标non-goals)
 - [API详解（API walk-through）](#API详解api-walk-through)
-  - [Use case 1](#use-case-1)
-  - [Use case 2](#use-case-2)
+  - [测量运行时间（Measuring elapsed time）](#测量运行时间measuring-elapsed-time)
+  - [显示当前人类时间（Telling the current human time）：](#显示当前人类时间telling-the-current-human-time)
+  - [获取时区（Retrieving the timezone）：](获取时区retrieving-the-timezone)
 - [详细设计讨论（Detailed design discussion）](#详细设计讨论detailed-design-discussion)
-  - [[Tricky design choice 1]](#tricky-design-choice-1)
+  - [时间戳的类型应该是什么？（What should the type of a timestamp be?）](#时间戳的类型应该是什么what-should-the-type-of-a-timestamp-be)
   - [[Tricky design choice 2]](#tricky-design-choice-2)
-- [Considered alternatives](#considered-alternatives)
-  - [[Alternative 1]](#alternative-1)
-  - [[Alternative 2]](#alternative-2)
+- [考虑替代方案（Considered alternatives）](#考虑替代方案considered-alternatives)
+  - [每个进程和每个线程的时钟（Per-process and per-thread clocks）](#每个进程和每个线程的时钟per-process-and-per-thread-clocks)
 - [项目相关方利益 & 反馈（Stakeholder Interest & Feedback）](#项目相关方利益--反馈stakeholder-interest--feedback)
 - [参考文献 & 致谢（References & acknowledgements）](#参考文献--致谢references--acknowledgements)
 - [开发（Development）](#开发development)
@@ -80,7 +80,7 @@ default-monotonic-clock: monotonic-clock
     println!("从Unix时间至今已有 {} seconds 和 {} nanoseconds！", the_current_time.seconds, the_current_time.nanoseconds);
 ```
 
-#### 获取时区（Retrieving the timezone）:
+#### 获取时区（Retrieving the timezone）：
 
 ```rust
     let datetime: Datetime = wall_clock::now();
@@ -106,7 +106,7 @@ default-monotonic-clock: monotonic-clock
 
 ### 考虑替代方案（Considered alternatives）
 
-#### Per-process和per-thread时钟（Per-process and per-thread clocks）
+#### 每个进程和每个线程的时钟（Per-process and per-thread clocks）
 
 WASI preview1包含两个时钟，分别测量当前进程和当前线程的CPU时间。这些时钟很难在同一个主机进程中，具有多个wasm实例的WASI实现中有效实现，因此它们已从此API中删除。
 
