@@ -1,5 +1,5 @@
 package wasi:clocks@0.2.0;
-/// WASI单调时钟(Monotonic Clock)是旨在让用户测量运行时间的API。
+/// WASI单调时钟(Monotonic Clock)是旨在让用户测量运行时间的时钟API。
 ///
 /// 该API旨在至少在Unix系列平台和Windows之间具有可移植性。
 ///
