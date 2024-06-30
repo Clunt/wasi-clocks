@@ -60,12 +60,9 @@ being reaedy for I/O.</p>
 <li><a name="poll.0"></a> list&lt;<code>u32</code>&gt;</li>
 </ul>
 <h2><a name="wasi_clocks_monotonic_clock_0_2_0"></a>Import interface wasi:clocks/monotonic-clock@0.2.0</h2>
-<p>WASI Monotonic Clock is a clock API intended to let users measure elapsed
-time.</p>
-<p>It is intended to be portable at least between Unix-family platforms and
-Windows.</p>
-<p>A monotonic clock is a clock which has an unspecified initial value, and
-successive reads of the clock will produce non-decreasing values.</p>
+<p>WASI单调时钟(Monotonic Clock)是旨在让用户测量运行时间的时钟API。</p>
+<p>该API旨在至少在Unix系列平台和Windows之间具有可移植性。</p>
+<p>单调时钟是具有未指定初始值的时钟，并且连续读取该时钟将产生非递减值(non-decreasing values)。</p>
 <hr />
 <h3>Types</h3>
 <h4><a name="pollable"></a><code>type pollable</code></h4>
@@ -73,32 +70,30 @@ successive reads of the clock will produce non-decreasing values.</p>
 <p>
 #### <a name="instant"></a>`type instant`
 `u64`
-<p>An instant in time, in nanoseconds. An instant is relative to an
-unspecified initial value, and can only be compared to instances from
-the same monotonic-clock.
+<p>时间中的时点(instant)，以纳秒(nanoseconds)为单位。
+instant与一个未指定的初始值有关，
+且仅能与其他相同单调时钟的instant进行比较。
 <h4><a name="duration"></a><code>type duration</code></h4>
 <p><code>u64</code></p>
-<p>A duration of time, in nanoseconds.
+<p>时间中的时长(duration)，以纳秒(nanoseconds)为单位。
 <hr />
 <h3>Functions</h3>
 <h4><a name="now"></a><code>now: func</code></h4>
-<p>Read the current value of the clock.</p>
-<p>The clock is monotonic, therefore calling this function repeatedly will
-produce a sequence of non-decreasing values.</p>
+<p>读取时钟当前值。</p>
+<p>时钟是单调的，因此重复调用此函数将产生一系列非递减值。</p>
 <h5>Return values</h5>
 <ul>
 <li><a name="now.0"></a> <a href="#instant"><a href="#instant"><code>instant</code></a></a></li>
 </ul>
 <h4><a name="resolution"></a><code>resolution: func</code></h4>
-<p>Query the resolution of the clock. Returns the duration of time
-corresponding to a clock tick.</p>
+<p>查询时钟的resolution。
+返回与时钟周期(clock tick)对应的时间时长(duration)。</p>
 <h5>Return values</h5>
 <ul>
 <li><a name="resolution.0"></a> <a href="#duration"><a href="#duration"><code>duration</code></a></a></li>
 </ul>
 <h4><a name="subscribe_instant"></a><code>subscribe-instant: func</code></h4>
-<p>Create a <a href="#pollable"><code>pollable</code></a> which will resolve once the specified instant
-has occurred.</p>
+<p>创建一个到达指定时刻(instant)被解析的<a href="#pollable"><code>pollable</code></a>。</p>
 <h5>Params</h5>
 <ul>
 <li><a name="subscribe_instant.when"></a><code>when</code>: <a href="#instant"><a href="#instant"><code>instant</code></a></a></li>
@@ -108,8 +103,7 @@ has occurred.</p>
 <li><a name="subscribe_instant.0"></a> own&lt;<a href="#pollable"><a href="#pollable"><code>pollable</code></a></a>&gt;</li>
 </ul>
 <h4><a name="subscribe_duration"></a><code>subscribe-duration: func</code></h4>
-<p>Create a <a href="#pollable"><code>pollable</code></a> that will resolve after the specified duration has
-elapsed from the time this function is invoked.</p>
+<p>创建一个在调用此函数经过指定时长(duration)后被解析的<a href="#pollable"><code>pollable</code></a>。</p>
 <h5>Params</h5>
 <ul>
 <li><a name="subscribe_duration.when"></a><code>when</code>: <a href="#duration"><a href="#duration"><code>duration</code></a></a></li>
@@ -119,20 +113,17 @@ elapsed from the time this function is invoked.</p>
 <li><a name="subscribe_duration.0"></a> own&lt;<a href="#pollable"><a href="#pollable"><code>pollable</code></a></a>&gt;</li>
 </ul>
 <h2><a name="wasi_clocks_wall_clock_0_2_0"></a>Import interface wasi:clocks/wall-clock@0.2.0</h2>
-<p>WASI Wall Clock is a clock API intended to let users query the current
-time. The name &quot;wall&quot; makes an analogy to a &quot;clock on the wall&quot;, which
-is not necessarily monotonic as it may be reset.</p>
-<p>It is intended to be portable at least between Unix-family platforms and
-Windows.</p>
-<p>A wall clock is a clock which measures the date and time according to
-some external reference.</p>
-<p>External references may be reset, so this clock is not necessarily
-monotonic, making it unsuitable for measuring elapsed time.</p>
-<p>It is intended for reporting the current date and time for humans.</p>
+<p>WASI挂钟(Wall Clock)是旨在让用户查询当前时间的时钟API。
+名称“wall”可类比于“clock on the wall(墙上的时钟)”，
+它不一定是单调的，因为可能会被重置。</p>
+<p>该API旨在至少在Unix系列平台和Windows之间具有可移植性。</p>
+<p>挂钟(wall clock)是根据某个外部参考来测量日期和时间的时钟。</p>
+<p>外部参考可能会重置，所以此时钟不一定是单调的，因此不适合测量运行时间(elapsed time)。</p>
+<p>它旨在向人类报告当前的日期和时间。</p>
 <hr />
 <h3>Types</h3>
 <h4><a name="datetime"></a><code>record datetime</code></h4>
-<p>A time and date in seconds plus nanoseconds.</p>
+<p>时间和日期，以秒(seconds)及纳秒(nanoseconds)为单位。</p>
 <h5>Record Fields</h5>
 <ul>
 <li><a name="datetime.seconds"></a><code>seconds</code>: <code>u64</code></li>
@@ -141,20 +132,18 @@ monotonic, making it unsuitable for measuring elapsed time.</p>
 <hr />
 <h3>Functions</h3>
 <h4><a name="now"></a><code>now: func</code></h4>
-<p>Read the current value of the clock.</p>
-<p>This clock is not monotonic, therefore calling this function repeatedly
-will not necessarily produce a sequence of non-decreasing values.</p>
-<p>The returned timestamps represent the number of seconds since
-1970-01-01T00:00:00Z, also known as <a href="https://pubs.opengroup.org/onlinepubs/9699919799/xrat/V4_xbd_chap04.html#tag_21_04_16">POSIX's Seconds Since the Epoch</a>,
-also known as <a href="https://en.wikipedia.org/wiki/Unix_time">Unix Time</a>.</p>
-<p>The nanoseconds field of the output is always less than 1000000000.</p>
+<p>读取时钟的当前值。</p>
+<p>此时钟不是单调的，因此重复调用不一定会产生一系列非递减值。</p>
+<p>返回的时间戳(timestamp)表示自1970-01-01T00:00:00Z以来的秒数，
+也称为<a href="https://pubs.opengroup.org/onlinepubs/9699919799/xrat/V4_xbd_chap04.html#tag_21_04_16">POSIX's Seconds Since the Epoch</a>，或称<a href="https://en.wikipedia.org/wiki/Unix_time">Unix Time</a>。</p>
+<p>输出的nanoseconds字段总是小于1000000000。</p>
 <h5>Return values</h5>
 <ul>
 <li><a name="now.0"></a> <a href="#datetime"><a href="#datetime"><code>datetime</code></a></a></li>
 </ul>
 <h4><a name="resolution"></a><code>resolution: func</code></h4>
-<p>Query the resolution of the clock.</p>
-<p>The nanoseconds field of the output is always less than 1000000000.</p>
+<p>查询时钟的resolution。</p>
+<p>输出的nanoseconds字段总是小于1000000000。</p>
 <h5>Return values</h5>
 <ul>
 <li><a name="resolution.0"></a> <a href="#datetime"><a href="#datetime"><code>datetime</code></a></a></li>
