@@ -29,7 +29,6 @@ WASI clocks必须至少有两个完整独立的实现。
   - [获取时区（Retrieving the timezone）：](获取时区retrieving-the-timezone)
 - [详细设计讨论（Detailed design discussion）](#详细设计讨论detailed-design-discussion)
   - [时间戳的类型应该是什么？（What should the type of a timestamp be?）](#时间戳的类型应该是什么what-should-the-type-of-a-timestamp-be)
-  - [[Tricky design choice 2]](#tricky-design-choice-2)
 - [考虑替代方案（Considered alternatives）](#考虑替代方案considered-alternatives)
   - [每个进程和每个线程的时钟（Per-process and per-thread clocks）](#每个进程和每个线程的时钟per-process-and-per-thread-clocks)
 - [项目相关方利益 & 反馈（Stakeholder Interest & Feedback）](#项目相关方利益--反馈stakeholder-interest--feedback)
