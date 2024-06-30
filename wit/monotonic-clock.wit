@@ -1,41 +1,35 @@
 package wasi:clocks@0.2.0;
-/// WASI Monotonic Clock is a clock API intended to let users measure elapsed
-/// time.
+/// WASI单调时钟(Monotonic Clock)是旨在让用户测量运行时间的API。
 ///
-/// It is intended to be portable at least between Unix-family platforms and
-/// Windows.
+/// 该API旨在至少在Unix系列平台和Windows之间具有可移植性。
 ///
-/// A monotonic clock is a clock which has an unspecified initial value, and
-/// successive reads of the clock will produce non-decreasing values.
+/// 单调时钟是具有未指定初始值的时钟，并且连续读取该时钟将产生非递减值(non-decreasing values)。
 interface monotonic-clock {
     use wasi:io/poll@0.2.0.{pollable};
 
-    /// An instant in time, in nanoseconds. An instant is relative to an
-    /// unspecified initial value, and can only be compared to instances from
-    /// the same monotonic-clock.
+    /// 时间中的时点(instant)，以纳秒(nanoseconds)为单位。
+    /// instant与一个未指定的初始值有关，
+    /// 且仅能与其他相同单调时钟的instant进行比较。
     type instant = u64;
 
-    /// A duration of time, in nanoseconds.
+    /// 时间中的时长(duration)，以纳秒(nanoseconds)为单位。
     type duration = u64;
 
-    /// Read the current value of the clock.
+    /// 读取时钟当前值。
     ///
-    /// The clock is monotonic, therefore calling this function repeatedly will
-    /// produce a sequence of non-decreasing values.
+    /// 时钟是单调的，因此重复调用此函数将产生一系列非递减值。
     now: func() -> instant;
 
-    /// Query the resolution of the clock. Returns the duration of time
-    /// corresponding to a clock tick.
+    /// 查询时钟的resolution。
+    /// 返回与时钟周期(clock tick)对应的时间时长(duration)。
     resolution: func() -> duration;
 
-    /// Create a `pollable` which will resolve once the specified instant
-    /// has occurred.
+    /// 创建一个到达指定时刻(instant)被解析的`pollable`。
     subscribe-instant: func(
         when: instant,
     ) -> pollable;
 
-    /// Create a `pollable` that will resolve after the specified duration has
-    /// elapsed from the time this function is invoked.
+    /// 创建一个在调用此函数经过指定时长(duration)后被解析的`pollable`。
     subscribe-duration: func(
         when: duration,
     ) -> pollable;
