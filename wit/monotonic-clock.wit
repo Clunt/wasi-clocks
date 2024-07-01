@@ -20,7 +20,7 @@ interface monotonic-clock {
     /// 时钟是单调的，因此重复调用此函数将产生一系列非递减值。
     now: func() -> instant;
 
-    /// 查询时钟的resolution。
+    /// 查询时钟精度。
     /// 返回与时钟周期(clock tick)对应的时间时长(duration)。
     resolution: func() -> duration;
 
