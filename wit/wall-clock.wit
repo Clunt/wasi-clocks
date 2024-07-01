@@ -30,7 +30,7 @@ interface wall-clock {
     /// [Unix Time]: https://en.wikipedia.org/wiki/Unix_time
     now: func() -> datetime;
 
-    /// 查询时钟的resolution。
+    /// 查询时钟精度。
     ///
     /// 输出的nanoseconds字段总是小于1000000000。
     resolution: func() -> datetime;
